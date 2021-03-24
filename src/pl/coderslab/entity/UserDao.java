@@ -16,7 +16,7 @@ public class UserDao {
                     conn.prepareStatement(CREATE_USER, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getUserName());
             statement.setString(2, user.getEmail());
-            statement.setString(3, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt())); // TODO : hash pass
+            statement.setString(3, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -74,7 +74,6 @@ public class UserDao {
         }
     }
 
-    // Method needs to use Main.getNewInfo() to obtain User user
     public void update(User user) {
         try (Connection conn = DBUtil.connect()) {
             DBUtil.edit(conn,
